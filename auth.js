@@ -7,7 +7,7 @@ import {
   signOut 
 } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
-// 🔹 Replace with your Firebase config
+// 🔹 Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyD3lH7zj63m7GUqzNWtWVnS6RwKuOXXX08",
   authDomain: "vascularaccessalpha.firebaseapp.com",
@@ -23,25 +23,35 @@ const auth = getAuth(app);
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   const errorEl = document.getElementById("error");
+
+  // Get the current page filename, ignoring query strings or hashes
   const path = window.location.pathname.split("/").pop().split("#")[0].split("?")[0];
 
-  // --- LOGIN FORM ---
+  // List of protected course pages
+  const coursePages = [
+    "midlinecourse.html",
+    "midlinecontent2.html",
+    "midlinecontent3.html",
+    "midlinecontent4.html"
+  ];
+
+  // -------------------
+  // LOGIN FORM HANDLER
+  // -------------------
   if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      console.log("Login attempt:", email, password); // ✅ debug
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
       errorEl.textContent = "";
 
       try {
         await signInWithEmailAndPassword(auth, email, password);
         console.log("Login successful");
-        window.location.href = "midlinecourse.html"; // first module
+        // redirect to first course page
+        window.location.replace("midlinecourse.html");
       } catch (err) {
-        console.error("Login error:", err.code, err.message); // ✅ debug
+        console.error("Login error:", err.code, err.message);
         switch (err.code) {
           case "auth/wrong-password":
             errorEl.textContent = "Incorrect password. Please try again.";
@@ -59,39 +69,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- PROTECT COURSE PAGES ---
-  const coursePages = [
-    "midlinecourse.html",
-    "midlinecontent2.html",
-    "midlinecontent3.html",
-    "midlinecontent4.html"
-  ];
-
+  // -------------------
+  // PROTECT COURSE PAGES
+  // -------------------
   onAuthStateChanged(auth, (user) => {
-    const isLoginPage = path === "midlinelogin.html";
-    const isCoursePage = coursePages.includes(path);
-
-    // If logged in and on login page → redirect to first module
-    if (user && isLoginPage) {
+    // If user is logged in and on login page → redirect to first module
+    if (user && path === "midlinelogin.html") {
       console.log("User already logged in. Redirecting to first course page.");
-      window.location.href = "midlinecourse.html";
+      window.location.replace("midlinecourse.html");
+      return;
     }
 
-    // If not logged in and on a protected page → redirect to login
-    if (!user && isCoursePage) {
+    // If user is not logged in and on a protected course page → redirect to login
+    if (!user && coursePages.includes(path)) {
       console.log("User not logged in. Redirecting to login page.");
-      window.location.href = "midlinelogin.html";
+      window.location.replace("midlinelogin.html");
+      return;
     }
+
+    // If user is logged in and on a course page → do nothing (allow navigation)
   });
 
-  // --- LOGOUT BUTTON ---
+  // -------------------
+  // LOGOUT BUTTON
+  // -------------------
   const logoutBtn = document.getElementById("logout");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async (e) => {
       e.preventDefault();
       await signOut(auth);
       console.log("User logged out");
-      window.location.href = "midlinelogin.html";
+      // Go to login page
+      window.location.replace("midlinelogin.html");
     });
   }
 });
