@@ -17,39 +17,36 @@ const firebaseConfig = {
   appId: "1:585810430356:web:bd71e83a6ba6ba0cef2781"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 document.addEventListener("DOMContentLoaded", () => {
+
   const loginForm = document.getElementById("loginForm");
   const errorEl = document.getElementById("error");
-
-  // Get the current page filename, ignoring query strings or hashes
-  const path = window.location.pathname.split("/").pop().split("#")[0].split("?")[0];
-
-  // List of protected course pages
+  const path = window.location.pathname.split("/").pop().split("#")[0].split("?")[0]; // current file
   const coursePages = [
     "midlinecourse.html",
     "midlinecontent2.html",
     "midlinecontent3.html",
     "midlinecontent4.html"
   ];
+  const isCoursePage = coursePages.includes(path);
+  const isLoginPage = path === "midlinelogin.html";
 
-  // -------------------
-  // LOGIN FORM HANDLER
-  // -------------------
+  // --- LOGIN FORM ---
   if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-      errorEl.textContent = "";
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
+      errorEl.textContent = "";
       try {
         await signInWithEmailAndPassword(auth, email, password);
         console.log("Login successful");
-        // redirect to first course page
-        window.location.replace("midlinecourse.html");
+        window.location.href = "midlinecourse.html"; // first module
       } catch (err) {
         console.error("Login error:", err.code, err.message);
         switch (err.code) {
@@ -69,41 +66,43 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // -------------------
-  // PROTECT COURSE PAGES
-  // -------------------
+  // --- PROTECT COURSE PAGES ---
   onAuthStateChanged(auth, (user) => {
-  const isLoginPage = path === "midlinelogin.html";
-  const isCoursePage = coursePages.includes(path);
+    if (!user && isCoursePage) {
+      // Only redirect if not logged in and on protected page
+      console.log("User not logged in. Redirecting to login page.");
+      window.location.href = "midlinelogin.html";
+    }
 
-  // ONLY redirect to login if user is NOT logged in and trying to access a protected course page
-  if (!user && isCoursePage) {
-    console.log("User not logged in. Redirecting to login page.");
-    window.location.replace("midlinelogin.html");
-    return;
-  }
+    if (user && isLoginPage) {
+      // Already logged in and on login page → redirect to first course page
+      console.log("User already logged in. Redirecting to first course page.");
+      window.location.href = "midlinecourse.html";
+    }
+  });
 
-  // ONLY redirect to first course page if user is logged in AND currently on the login page
-  if (user && isLoginPage) {
-    console.log("User already logged in. Redirecting to first course page.");
-    window.location.replace("midlinecourse.html");
-    return;
-  }
-
-  // If user is logged in and on a course page → DO NOTHING
-});
-
-  // -------------------
-  // LOGOUT BUTTON
-  // -------------------
+  // --- LOGOUT BUTTON ---
   const logoutBtn = document.getElementById("logout");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async (e) => {
       e.preventDefault();
-      await signOut(auth);
-      console.log("User logged out");
-      // Go to login page
-      window.location.replace("midlinelogin.html");
+      try {
+        await signOut(auth);
+        console.log("User logged out");
+        window.location.href = "midlinelogin.html";
+      } catch (err) {
+        console.error("Logout error:", err);
+      }
     });
   }
+
+  // --- Smooth scroll for anchor links only ---
+  document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
 });
