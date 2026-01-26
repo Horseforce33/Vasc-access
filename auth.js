@@ -23,7 +23,7 @@ const auth = getAuth(app);
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   const errorEl = document.getElementById("error");
-  const path = window.location.pathname;
+  const path = window.location.pathname.split("/").pop(); // get current filename
 
   // --- LOGIN FORM ---
   if (loginForm) {
@@ -34,13 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("password").value;
 
       console.log("Login attempt:", email, password); // ✅ debug
-
       errorEl.textContent = "";
 
       try {
         await signInWithEmailAndPassword(auth, email, password);
         console.log("Login successful");
-        window.location.href = "midlinecourse.html";
+        window.location.href = "midlinecourse.html"; // first module
       } catch (err) {
         console.error("Login error:", err.code, err.message); // ✅ debug
         switch (err.code) {
@@ -61,15 +60,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- PROTECT COURSE PAGES ---
-  onAuthStateChanged(auth, (user) => {
-    const isLoginPage = path.includes("midlinelogin.html");
-    const isCoursePage = path.includes("midlinecourse.html");
+  const coursePages = [
+    "midlinecourse.html",
+    "midlinecontent2.html",
+    "midlinecontent3.html",
+    "midlinecontent4.html"
+  ];
 
+  onAuthStateChanged(auth, (user) => {
+    const isLoginPage = path === "midlinelogin.html";
+    const isCoursePage = coursePages.includes(path);
+
+    // If logged in and on login page → redirect to first module
     if (user && isLoginPage) {
-      console.log("User already logged in. Redirecting to course page.");
+      console.log("User already logged in. Redirecting to first course page.");
       window.location.href = "midlinecourse.html";
     }
 
+    // If not logged in and on a protected page → redirect to login
     if (!user && isCoursePage) {
       console.log("User not logged in. Redirecting to login page.");
       window.location.href = "midlinelogin.html";
