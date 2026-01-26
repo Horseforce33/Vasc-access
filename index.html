@@ -158,30 +158,31 @@
 
   // Waiting list submission
   document.querySelector('.contact-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const role = document.getElementById('role').value;
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const role = document.getElementById('role').value;
 
-    try {
-      await db.collection('waiting_list').add({
-        name,
-        email,
-        role,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
+  try {
+    await db.collection('waiting_list').add({
+      name,
+      email,
+      role,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    console.log("Firestore submission successful!");
+  } catch (err) {
+    console.error("Firestore error:", err);
+    alert("Could not save submission. Try again.");
+    return; // stop here if Firestore fails
+  }
 
-        emailjs.send("service_9jqoaqp", "template_flt577v", { name, email, role })
-        .then(() => {console.log("Email sent!");})
-        .catch(err => console.error("EmailJS send error:", err));
+  emailjs.send("service_9jqoaqp", "template_flt577v", { name, email, role })
+    .then(() => {console.log("Email sent!"); alert("Thanks! Your interest has been registered.");})
+    .catch(err => {console.error("EmailJS send error:", err); alert("Failed to send email.");});
 
-      alert("Thanks! Your interest has been registered.");
-      e.target.reset();
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again.");
-    }
-  });
+  e.target.reset();
+});
 </script>
 
 <script src="midline.js"></script>
