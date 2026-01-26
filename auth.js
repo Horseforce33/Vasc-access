@@ -73,22 +73,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // PROTECT COURSE PAGES
   // -------------------
   onAuthStateChanged(auth, (user) => {
-    // If user is logged in and on login page → redirect to first module
-    if (user && path === "midlinelogin.html") {
-      console.log("User already logged in. Redirecting to first course page.");
-      window.location.replace("midlinecourse.html");
-      return;
-    }
+  const isLoginPage = path === "midlinelogin.html";
+  const isCoursePage = coursePages.includes(path);
 
-    // If user is not logged in and on a protected course page → redirect to login
-    if (!user && coursePages.includes(path)) {
-      console.log("User not logged in. Redirecting to login page.");
-      window.location.replace("midlinelogin.html");
-      return;
-    }
+  // ONLY redirect to login if user is NOT logged in and trying to access a protected course page
+  if (!user && isCoursePage) {
+    console.log("User not logged in. Redirecting to login page.");
+    window.location.replace("midlinelogin.html");
+    return;
+  }
 
-    // If user is logged in and on a course page → do nothing (allow navigation)
-  });
+  // ONLY redirect to first course page if user is logged in AND currently on the login page
+  if (user && isLoginPage) {
+    console.log("User already logged in. Redirecting to first course page.");
+    window.location.replace("midlinecourse.html");
+    return;
+  }
+
+  // If user is logged in and on a course page → DO NOTHING
+});
 
   // -------------------
   // LOGOUT BUTTON
