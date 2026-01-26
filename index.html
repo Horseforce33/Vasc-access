@@ -171,11 +171,9 @@
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-        emailjs.send("service_9jqoaqp", "template_flt577v", {
-        name,
-        email,
-        role
-      }).then(() => {console.log("Email sent!");}).catch(err => console.error(err));
+        emailjs.send("service_9jqoaqp", "template_flt577v", { name, email, role })
+        .then(() => {console.log("Email sent!");})
+        .catch(err => console.error("EmailJS send error:", err));
 
       alert("Thanks! Your interest has been registered.");
       e.target.reset();
