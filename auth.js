@@ -23,7 +23,7 @@ const auth = getAuth(app);
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   const errorEl = document.getElementById("error");
-  const path = window.location.pathname.split("/").pop(); // get current filename
+  const path = window.location.pathname.split("/").pop().split("#")[0].split("?")[0];
 
   // --- LOGIN FORM ---
   if (loginForm) {
