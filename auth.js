@@ -71,13 +71,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       /* EMAILJS (non-blocking) */
       if (typeof emailjs !== "undefined") {
-        emailjs.send("service_9jqoaqp", "template_flt577v", {
-          from_name: name,
-          from_email: email,
-          role: role || "Not provided",
-          reply_to: email
-        }).catch(err => {
-          console.warn("EmailJS failed (non-critical):", err);
+       emailjs.send("service_9jqoaqp", "template_flt577v", {
+        name: name,
+        email: email,
+        role: role || "Not provided"
+        })
+        .then(res => {
+        console.log("EmailJS SUCCESS:", res);
+        })
+        .catch(err => {
+        console.error("EmailJS FAILED:", err);
         });
       }
 
