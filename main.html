@@ -5,35 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Midline Mastery | Clinical E-Learning</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="midline.css" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <!-- Firebase SDKs (compat) -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
     emailjs.init("d77Wfobv8PH4KJRjt");
-  </script>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyD3lH7zj63m7GUqzNWtWVnS6RwKuOXXX08",
-      authDomain: "vascularaccessalpha.firebaseapp.com",
-      projectId: "vascularaccessalpha",
-      storageBucket: "vascularaccessalpha.firebasestorage.app",
-      messagingSenderId: "585810430356",
-      appId: "1:585810430356:web:bd71e83a6ba6ba0cef2781",
-      measurementId: "G-MQKGWTQEVW"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
   </script>
 </head>
 
@@ -45,6 +23,7 @@
     <a href="#curriculum">Curriculum</a>
     <a href="#faculty">Faculty</a>
     <a href="#register-interest">Enrol</a>
+
     <div class="social-icons">
       <a href="#"><i class="fab fa-x-twitter"></i></a>
       <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -54,7 +33,7 @@
 
 <header id="hero">
   <div class="hero-content">
-    <h2 class="hover-effect">Vascular Access Mastery</h2>
+    <h2 class="hover-effect">Advanced Vascular Access</h2>
     <h1 class="hover-effect">A Practical, Evidence-Based Course in Midline / PICC / Central line Insertion</h1>
     <p>Designed for doctors, nurses, and advanced practitioners</p>
     <a href="midlinelogin.html" class="login-button">Log in</a>
@@ -63,7 +42,14 @@
 
 <section id="about">
   <h2 class="hover-effect">Why This Course?</h2>
-  <p>This short e-learning course provides a structured, clinically focused approach to midline catheter selection, insertion, troubleshooting, and complications.</p>
+  <p>This short e-learning course provides structured training in vascular access techniques.</p>
+
+  <!-- FIXED IMAGE PATHS -->
+  <div class="gallery">
+    <img src="midlinefoto1.jpg" alt="Midline training image 1" />
+    <img src="midlinefoto2.jpg" alt="Midline training image 2" />
+    <img src="midlinefoto3.jpg" alt="Midline training image 3" />
+  </div>
 </section>
 
 <section id="curriculum">
@@ -78,6 +64,12 @@
 
 <section id="faculty">
   <h2 class="hover-effect">Faculty</h2>
+
+  <!-- FIXED IMAGE PATHS -->
+  <div class="gallery2">
+    <img src="midlinefoto5.jpeg" alt="Faculty image 1" />
+    <img src="midlinefoto6.jpg" alt="Faculty image 2" />
+  </div>
 </section>
 
 <section id="register-interest">
@@ -100,47 +92,11 @@
 </section>
 
 <footer>
-  <p>&copy; 2026 Midline Mastery. Educational use only.</p>
+  <p>&copy; 2026 Advanced Vascular Access. Educational use only.</p>
 </footer>
 
-<script>
-  document.querySelector('.contact-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const role = document.getElementById('role').value;
-
-    try {
-      await db.collection('waiting_list').add({
-        name,
-        email,
-        role,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      emailjs.send("service_9jqoaqp", "template_flt577v", {
-        name,
-        email,
-        role,
-        from_name: name,
-        from_email: email,
-        reply_to: email
-      })
-      .then(res => console.log("Email sent", res))
-      .catch(err => console.error("EmailJS error:", err));
-
-      alert("Thanks! Your interest has been registered.");
-      e.target.reset();
-
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again.");
-    }
-  });
-</script>
-
-<script src="midline.js"></script>
+<script type="module" src="auth.js"></script>
+<script type="module" src="form.js"></script>
 
 </body>
 </html>
