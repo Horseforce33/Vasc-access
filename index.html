@@ -1,142 +1,143 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vascular Access Academy</title>
 
-  <link rel="stylesheet" href="midline.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="midline.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    emailjs.init({
-      publicKey: "d77Wfobv8PH4KJRjt"
-    });
-  </script>
 </head>
 
 <body>
 
-  <nav>
-    <div class="menu">
-      <a href="#about">About</a>
-      <a href="#curriculum">Curriculum</a>
-      <a href="#faculty">Faculty</a>
-      <a href="#register-interest">Enrol</a>
+<!-- NAVBAR -->
+<nav>
+  <div class="menu">
+    <a href="#about">About</a>
+    <a href="#curriculum">Curriculum</a>
+    <a href="#faculty">Faculty</a>
+    <a href="#register">Enrol</a>
 
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-x-twitter"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-      </div>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-x-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <header id="hero">
+<!-- HERO -->
+<header id="hero">
+  <div class="hero-overlay">
     <div class="hero-content">
-      <h2 class="hover-effect">Vascular Access Academy</h2>
-      <h1 class="hover-effect">
-        A Practical, Evidence-Based Course in Midline / PICC / Central Line Insertion
-      </h1>
-      <p>Designed for doctors, nurses, and advanced practitioners</p>
-      <a href="midlinelogin.html" class="login-button">Log in</a>
+      <h2>Vascular Access Academy</h2>
+      <h1>Practical Midline, PICC & Central Line Training</h1>
+      <p>Evidence-based vascular access education for clinicians</p>
+      <a href="midlinelogin.html" class="btn">Log In</a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <section id="about">
-    <h2 class="hover-effect">Why This Course?</h2>
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-wrapper">
 
-    <div class="about-content">
+    <div class="about-text">
+      <h2>Why This Course?</h2>
 
-      <div class="about-logo">
-        <img src="logo.png" alt="Vascular Access Academy Logo" />
-      </div>
+      <p>
+        Advanced Vascular Access is a practical course designed to provide
+        clinicians with immediately usable procedural skills.
+      </p>
 
-      <div class="about-text">
-        <p>
-          Advanced Vascular Access is a practical, evidence-based course
-          designed to provide clinicians with ready-to-use skills for vascular access.
-        </p>
+      <p>
+        Built with expertise from consultants and industry leaders across the UK.
+      </p>
 
-        <p>
-          We've sourced expertise from across the North of England including
-          medical consultants and industry experts to provide the highest quality
-          training for your career.
-        </p>
-
-        <ul>
-          <li>Ultrasound-guided insertion principles</li>
-          <li>Evidence-based patient selection</li>
-          <li>Complication prevention & troubleshooting</li>
-          <li>Designed for multidisciplinary clinicians</li>
-        </ul>
-
-        <p>
-          This short e-learning course provides structured training in vascular
-          access techniques.
-        </p>
-      </div>
-
+      <ul>
+        <li>Ultrasound-guided insertion</li>
+        <li>Patient selection</li>
+        <li>Complication prevention</li>
+        <li>Real-world procedural practice</li>
+      </ul>
     </div>
-  </section>
 
-  <section id="curriculum">
-    <h2 class="hover-effect">Course Curriculum</h2>
-
-    <div class="services">
-      <div class="service hover-effect">
-        <h3>Indications & Patient Selection</h3>
-      </div>
-
-      <div class="service hover-effect">
-        <h3>Ultrasound Anatomy</h3>
-      </div>
-
-      <div class="service hover-effect">
-        <h3>Insertion Technique</h3>
-      </div>
-
-      <div class="service hover-effect">
-        <h3>Complications & Troubleshooting</h3>
-      </div>
+    <div class="about-logo">
+      <img src="logo.png" alt="Vascular Access Academy">
     </div>
-  </section>
 
-  <section id="faculty">
-    <h2 class="hover-effect">Faculty</h2>
+  </div>
+</section>
 
-    <div class="gallery2">
-      <img src="midlinefoto5.jpeg" alt="Faculty image 1" />
-      <img src="midlinefoto6.jpg" alt="Faculty image 2" />
+<!-- IMAGE BREAK -->
+<section class="banner"></section>
+
+<!-- CURRICULUM -->
+<section id="curriculum">
+  <h2>Course Curriculum</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Indications</h3>
+      <p>Evidence-based device selection</p>
     </div>
-  </section>
 
-  <section id="register-interest">
-    <div class="centre-box">
-      <h2>Register Your Interest</h2>
-
-      <form class="contact-form">
-        <label for="name">Name</label>
-        <input type="text" id="name" required />
-
-        <label for="email">Email</label>
-        <input type="email" id="email" required />
-
-        <label for="role">Role</label>
-        <input type="text" id="role" />
-
-        <button type="submit">Join Waiting List</button>
-      </form>
+    <div class="card">
+      <h3>Ultrasound Anatomy</h3>
+      <p>Vessel identification and optimisation</p>
     </div>
-  </section>
 
-  <footer>
-    <p>&copy; 2026 Advanced Vascular Access. Educational use only.</p>
-  </footer>
+    <div class="card">
+      <h3>Insertion Technique</h3>
+      <p>Step-by-step procedural guidance</p>
+    </div>
 
-  <script type="module" src="auth.js"></script>
-  <script src="midline.js"></script>
+    <div class="card">
+      <h3>Troubleshooting</h3>
+      <p>Complications and management</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section id="faculty">
+  <h2>Faculty</h2>
+
+  <div class="gallery">
+    <img src="midlinefoto5.jpeg" alt="">
+    <img src="midlinefoto6.jpg" alt="">
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section id="register">
+  <div class="form-box">
+    <h2>Register Interest</h2>
+
+    <form id="contact-form">
+      <input type="text" id="name" placeholder="Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="role" placeholder="Role">
+
+      <button type="submit">Join Waiting List</button>
+    </form>
+
+    <p id="status"></p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Vascular Access Academy</p>
+</footer>
+
+<script src="midline.js"></script>
 
 </body>
 </html>
+```
