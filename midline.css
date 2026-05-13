@@ -73,6 +73,17 @@ nav {
   border-radius: 8px;
 }
 
+.login-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 28px;
+  background: #0077cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
 /* ABOUT */
 
 #about {
