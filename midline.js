@@ -62,3 +62,12 @@ document.getElementById("contact-form").addEventListener("submit", function(e) {
   box-shadow: 0 18px 35px rgba(0,0,0,0.18);
   background: #f9f9f9;
 }
+
+.banner {
+  height: 420px;
+  width: 100%;
+  background-image: url("midlinefoto4.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
