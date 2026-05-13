@@ -1,16 +1,29 @@
-// simple form handler (no EmailJS)
+document.addEventListener("DOMContentLoaded", () => {
 
-document.getElementById("form").addEventListener("submit", function (e) {
-  e.preventDefault();
+  // Smooth scrolling
+  document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
 
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const role = document.getElementById("role").value;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 
-  console.log("New registration:", { name, email, role });
+  // Hover effects (class-based)
+  document.querySelectorAll('.hover-effect').forEach(el => {
+    el.addEventListener('mouseenter', () => el.classList.add('hover-on'));
+    el.addEventListener('mouseleave', () => el.classList.remove('hover-on'));
+  });
 
-  document.getElementById("status").textContent =
-    "Thanks — your interest has been recorded.";
+  // Hero fade on scroll
+  const hero = document.querySelector('.hero-content');
 
-  this.reset();
+  if (hero) {
+    window.addEventListener('scroll', () => {
+      hero.style.opacity = Math.max(1 - window.scrollY / 300, 0);
+    });
+  }
+
 });
